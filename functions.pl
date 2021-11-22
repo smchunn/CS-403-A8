@@ -6,6 +6,14 @@ list(Op, Ref, List) :- (
 	Op='lt', findall([X, Y, Z], (pay(X, Y, Z), Z<Ref), List);
 	Op='le', findall([X, Y, Z], (pay(X, Y, Z), Z=<Ref), List)
 	).
+simplelist(Op, Ref, List) :- (
+	Op='eq', findall(Z, (pay(X, Y, Z), Z=:=Ref), List);
+	Op='ne', findall(Z, (pay(X, Y, Z), Z=\=Ref), List);
+	Op='gt', findall(Z, (pay(X, Y, Z), Z>Ref), List);
+	Op='ge', findall(Z, (pay(X, Y, Z), Z>=Ref), List);
+	Op='lt', findall(Z, (pay(X, Y, Z), Z<Ref), List);
+	Op='le', findall(Z, (pay(X, Y, Z), Z=<Ref), List)
+	).
 count(Op, Ref, Count) :- (
 	Op='eq', findall(Z, (pay(X, Y, Z), Z=:=Ref), List), length(List, Count);
 	Op='ne', findall(Z, (pay(X, Y, Z), Z=\=Ref), List), length(List, Count);
@@ -13,4 +21,28 @@ count(Op, Ref, Count) :- (
 	Op='ge', findall(Z, (pay(X, Y, Z), Z>=Ref), List), length(List, Count);
 	Op='lt', findall(Z, (pay(X, Y, Z), Z<Ref), List), length(List, Count);
 	Op='le', findall(Z, (pay(X, Y, Z), Z=<Ref), List), length(List, Count)
+	).
+min(Op, Ref, Min) :- (
+	Op='eq', findall(Z, (pay(X, Y, Z), Z=:=Ref), List), min_list(List, Min);
+	Op='ne', findall(Z, (pay(X, Y, Z), Z=\=Ref), List), min_list(List, Min);
+	Op='gt', findall(Z, (pay(X, Y, Z), Z>Ref), List), min_list(List, Min);
+	Op='ge', findall(Z, (pay(X, Y, Z), Z>=Ref), List), min_list(List, Min);
+	Op='lt', findall(Z, (pay(X, Y, Z), Z<Ref), List), min_list(List, Min);
+	Op='le', findall(Z, (pay(X, Y, Z), Z=<Ref), List), min_list(List, Min)
+	).
+max(Op, Ref, Max) :- (
+	Op='eq', findall(Z, (pay(X, Y, Z), Z=:=Ref), List), max_list(List, Max);
+	Op='ne', findall(Z, (pay(X, Y, Z), Z=\=Ref), List), max_list(List, Max);
+	Op='gt', findall(Z, (pay(X, Y, Z), Z>Ref), List), max_list(List, Max);
+	Op='ge', findall(Z, (pay(X, Y, Z), Z>=Ref), List), max_list(List, Max);
+	Op='lt', findall(Z, (pay(X, Y, Z), Z<Ref), List), max_list(List, Max);
+	Op='le', findall(Z, (pay(X, Y, Z), Z=<Ref), List), max_list(List, Max)
+	).
+total(Op, Ref, Total) :- (
+	Op='eq', findall(Z, (pay(X, Y, Z), Z=:=Ref), List), sum_list(List, Total);
+	Op='ne', findall(Z, (pay(X, Y, Z), Z=\=Ref), List), sum_list(List, Total);
+	Op='gt', findall(Z, (pay(X, Y, Z), Z>Ref), List), sum_list(List, Total);
+	Op='ge', findall(Z, (pay(X, Y, Z), Z>=Ref), List), sum_list(List, Total);
+	Op='lt', findall(Z, (pay(X, Y, Z), Z<Ref), List), sum_list(List, Total);
+	Op='le', findall(Z, (pay(X, Y, Z), Z=<Ref), List), sum_list(List, Total)
 	).
